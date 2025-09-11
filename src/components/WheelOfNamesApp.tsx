@@ -21,12 +21,14 @@ export const WheelOfNamesApp = () => {
   ]);
   
   const [newEntryName, setNewEntryName] = useState('');
+  const [newEntryColor, setNewEntryColor] = useState('#008080');
   const [isSpinning, setIsSpinning] = useState(false);
   const [winner, setWinner] = useState<string | null>(null);
   const [showWinnerModal, setShowWinnerModal] = useState(false);
   const [spinRotation, setSpinRotation] = useState(0);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editingName, setEditingName] = useState('');
+  const [editingColor, setEditingColor] = useState('');
   const [showConfetti, setShowConfetti] = useState(false);
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [spinDuration, setSpinDuration] = useState(6);
@@ -89,11 +91,12 @@ export const WheelOfNamesApp = () => {
     const newEntry: WheelEntry = {
       id: Date.now().toString(),
       name: newEntryName.trim(),
-      color: colors[entries.length % colors.length],
+      color: newEntryColor,
     };
 
     setEntries([...entries, newEntry]);
     setNewEntryName('');
+    setNewEntryColor(colors[(entries.length + 1) % colors.length]);
     toast.success('Entry added!');
   };
 
@@ -114,6 +117,7 @@ export const WheelOfNamesApp = () => {
   const startEdit = (entry: WheelEntry) => {
     setEditingId(entry.id);
     setEditingName(entry.name);
+    setEditingColor(entry.color);
   };
 
   const saveEdit = () => {
@@ -124,17 +128,19 @@ export const WheelOfNamesApp = () => {
 
     setEntries(entries.map(entry => 
       entry.id === editingId 
-        ? { ...entry, name: editingName.trim() }
+        ? { ...entry, name: editingName.trim(), color: editingColor }
         : entry
     ));
     setEditingId(null);
     setEditingName('');
+    setEditingColor('');
     toast.success('Entry updated!');
   };
 
   const cancelEdit = () => {
     setEditingId(null);
     setEditingName('');
+    setEditingColor('');
   };
 
   const spinWheel = () => {
@@ -257,17 +263,38 @@ export const WheelOfNamesApp = () => {
               </h2>
               
               {/* Add Entry */}
-              <div className="flex gap-2 mb-6">
-                <Input
-                  value={newEntryName}
-                  onChange={(e) => setNewEntryName(e.target.value)}
-                  placeholder="Enter a name..."
-                  onKeyPress={(e) => e.key === 'Enter' && addEntry()}
-                  className="flex-1"
-                />
-                <Button onClick={addEntry} className="bg-gradient-accent">
-                  <Plus className="w-4 h-4" />
-                </Button>
+              <div className="space-y-3 mb-6">
+                <div className="flex gap-2">
+                  <Input
+                    value={newEntryName}
+                    onChange={(e) => setNewEntryName(e.target.value)}
+                    placeholder="Enter a name..."
+                    onKeyPress={(e) => e.key === 'Enter' && addEntry()}
+                    className="flex-1"
+                  />
+                  <Button onClick={addEntry} className="bg-gradient-accent">
+                    <Plus className="w-4 h-4" />
+                  </Button>
+                </div>
+                <div className="flex items-center gap-2">
+                  <label className="text-sm font-medium text-muted-foreground">Color:</label>
+                  <input
+                    type="color"
+                    value={newEntryColor}
+                    onChange={(e) => setNewEntryColor(e.target.value)}
+                    className="w-10 h-8 rounded border border-border cursor-pointer"
+                  />
+                  <div className="flex gap-1">
+                    {colors.slice(0, 8).map((color) => (
+                      <button
+                        key={color}
+                        onClick={() => setNewEntryColor(color)}
+                        className="w-6 h-6 rounded border-2 border-white shadow-sm hover:scale-110 transition-transform"
+                        style={{ backgroundColor: color }}
+                      />
+                    ))}
+                  </div>
+                </div>
               </div>
 
               {/* Entries List */}
@@ -283,20 +310,41 @@ export const WheelOfNamesApp = () => {
                     />
                     
                     {editingId === entry.id ? (
-                      <div className="flex-1 flex gap-2">
-                        <Input
-                          value={editingName}
-                          onChange={(e) => setEditingName(e.target.value)}
-                          onKeyPress={(e) => e.key === 'Enter' && saveEdit()}
-                          className="flex-1"
-                          autoFocus
-                        />
-                        <Button onClick={saveEdit} size="sm" variant="outline">
-                          Save
-                        </Button>
-                        <Button onClick={cancelEdit} size="sm" variant="outline">
-                          Cancel
-                        </Button>
+                      <div className="flex-1 space-y-2">
+                        <div className="flex gap-2">
+                          <Input
+                            value={editingName}
+                            onChange={(e) => setEditingName(e.target.value)}
+                            onKeyPress={(e) => e.key === 'Enter' && saveEdit()}
+                            className="flex-1"
+                            autoFocus
+                          />
+                          <Button onClick={saveEdit} size="sm" variant="outline">
+                            Save
+                          </Button>
+                          <Button onClick={cancelEdit} size="sm" variant="outline">
+                            Cancel
+                          </Button>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <label className="text-xs text-muted-foreground">Color:</label>
+                          <input
+                            type="color"
+                            value={editingColor}
+                            onChange={(e) => setEditingColor(e.target.value)}
+                            className="w-6 h-6 rounded border border-border cursor-pointer"
+                          />
+                          <div className="flex gap-1">
+                            {colors.slice(0, 6).map((color) => (
+                              <button
+                                key={color}
+                                onClick={() => setEditingColor(color)}
+                                className="w-4 h-4 rounded border border-white shadow-sm hover:scale-110 transition-transform"
+                                style={{ backgroundColor: color }}
+                              />
+                            ))}
+                          </div>
+                        </div>
                       </div>
                     ) : (
                       <>
