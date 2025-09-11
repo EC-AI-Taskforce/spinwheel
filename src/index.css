@@ -2,41 +2,81 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Wheel of Rewards Design System - Vibrant, playful, and engaging */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Base colors */
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    /* Card colors */
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    /* Popover colors */
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Primary - Vibrant purple */
+    --primary: 263 70% 50%;
+    --primary-foreground: 0 0% 98%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Secondary - Golden yellow */
+    --secondary: 45 93% 47%;
+    --secondary-foreground: 240 10% 3.9%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Muted colors */
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Accent - Bright cyan */
+    --accent: 190 95% 50%;
+    --accent-foreground: 240 10% 3.9%;
 
+    /* Destructive */
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    /* Borders and inputs */
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 263 70% 50%;
 
-    --radius: 0.5rem;
+    /* Border radius */
+    --radius: 0.75rem;
+
+    /* Wheel-specific colors */
+    --wheel-bg: 240 5% 6%;
+    --wheel-border: 263 70% 50%;
+    --winner-glow: 45 93% 47%;
+    --confetti-1: 330 81% 60%;
+    --confetti-2: 152 81% 60%;
+    --confetti-3: 45 93% 47%;
+    --confetti-4: 263 70% 50%;
+    --confetti-5: 190 95% 50%;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(263 70% 50%), hsl(330 81% 60%));
+    --gradient-secondary: linear-gradient(135deg, hsl(45 93% 47%), hsl(30 100% 50%));
+    --gradient-accent: linear-gradient(135deg, hsl(190 95% 50%), hsl(152 81% 60%));
+    --gradient-rainbow: linear-gradient(90deg, 
+      hsl(0 100% 50%), 
+      hsl(45 100% 50%), 
+      hsl(120 100% 40%), 
+      hsl(190 100% 50%), 
+      hsl(263 100% 50%), 
+      hsl(330 100% 50%)
+    );
+
+    /* Shadows */
+    --shadow-glow: 0 0 40px hsl(var(--primary) / 0.3);
+    --shadow-winner: 0 0 60px hsl(var(--winner-glow) / 0.6);
+    --shadow-card: 0 8px 32px hsl(240 10% 3.9% / 0.5);
+
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-spring: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
 
     --sidebar-background: 0 0% 98%;
 
