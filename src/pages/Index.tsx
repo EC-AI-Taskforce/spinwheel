@@ -1,7 +1,7 @@
-import { WheelOfRewards } from "@/components/WheelOfRewards";
+import { WheelOfNamesApp } from "@/components/WheelOfNamesApp";
 
 const Index = () => {
-  return <WheelOfRewards />;
+  return <WheelOfNamesApp />;
 };
 
 export default Index;
