@@ -29,7 +29,7 @@ export const WheelOfNamesApp = () => {
   const [editingName, setEditingName] = useState('');
   const [showConfetti, setShowConfetti] = useState(false);
   const [soundEnabled, setSoundEnabled] = useState(true);
-  const [spinDuration, setSpinDuration] = useState(4);
+  const [spinDuration, setSpinDuration] = useState(6);
   
   const wheelRef = useRef<SpinningWheelRef>(null);
 
@@ -166,14 +166,18 @@ export const WheelOfNamesApp = () => {
       
       setWinner(selectedWinner.name);
       setIsSpinning(false);
-      setShowWinnerModal(true);
-      setShowConfetti(true);
       
-      // Play celebration sound
-      playSound();
-      
-      // Hide confetti after 3 seconds
-      setTimeout(() => setShowConfetti(false), 3000);
+      // Show modal and effects after a brief delay to ensure spin is complete
+      setTimeout(() => {
+        setShowWinnerModal(true);
+        setShowConfetti(true);
+        
+        // Play celebration sound
+        playSound();
+        
+        // Hide confetti after 3 seconds
+        setTimeout(() => setShowConfetti(false), 3000);
+      }, 100);
       
     }, spinDuration * 1000);
   };
