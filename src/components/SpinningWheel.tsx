@@ -27,7 +27,7 @@ export const SpinningWheel = forwardRef<SpinningWheelRef, SpinningWheelProps>(
       triggerSpin: (rotation: number) => {
         if (wheelRef.current) {
           wheelRef.current.style.transform = `rotate(${rotation}deg)`;
-          wheelRef.current.style.transition = 'transform 4s cubic-bezier(0.25, 0.1, 0.25, 1)';
+          wheelRef.current.style.transition = 'transform 6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
           
           // Reset transition after animation
           setTimeout(() => {
@@ -35,7 +35,7 @@ export const SpinningWheel = forwardRef<SpinningWheelRef, SpinningWheelProps>(
               wheelRef.current.style.transition = '';
               onAnimationComplete?.();
             }
-          }, 4000);
+          }, 6000);
         }
       },
     }));
@@ -128,7 +128,7 @@ export const SpinningWheel = forwardRef<SpinningWheelRef, SpinningWheelProps>(
         
         {/* Pointer */}
         <div className="absolute top-0 left-1/2 transform -translate-x-1/2 translate-y-2 z-10">
-          <div className="w-0 h-0 border-l-[12px] border-r-[12px] border-t-[20px] border-l-transparent border-r-transparent border-t-accent drop-shadow-md"></div>
+          <div className="w-0 h-0 border-l-[18px] border-r-[18px] border-t-[30px] border-l-transparent border-r-transparent border-t-accent drop-shadow-md"></div>
         </div>
       </div>
     );
