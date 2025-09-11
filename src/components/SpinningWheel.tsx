@@ -127,8 +127,8 @@ export const SpinningWheel = forwardRef<SpinningWheelRef, SpinningWheelProps>(
         </div>
         
         {/* Pointer */}
-        <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-2 z-10">
-          <div className="w-0 h-0 border-l-[12px] border-r-[12px] border-b-[20px] border-l-transparent border-r-transparent border-b-accent drop-shadow-md"></div>
+        <div className="absolute top-0 left-1/2 transform -translate-x-1/2 translate-y-2 z-10">
+          <div className="w-0 h-0 border-l-[12px] border-r-[12px] border-t-[20px] border-l-transparent border-r-transparent border-t-accent drop-shadow-md"></div>
         </div>
       </div>
     );
