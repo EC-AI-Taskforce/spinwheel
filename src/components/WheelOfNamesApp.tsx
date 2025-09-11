@@ -36,9 +36,22 @@ export const WheelOfNamesApp = () => {
   const wheelRef = useRef<SpinningWheelRef>(null);
 
   const colors = [
-    '#008080', '#000080', '#FFFFFF', '#4ECDC4', '#2C3E50', '#F8F9FA',
-    '#20B2AA', '#4169E1', '#E6E6FA', '#48CAE4', '#1E3A8A', '#F1F5F9',
-    '#5F9EA0', '#6495ED', '#DCDCDC', '#87CEEB', '#191970', '#FFFAFA'
+    // Blues
+    '#008080', '#000080', '#4169E1', '#1E3A8A', '#191970', '#5F9EA0', '#6495ED', '#4682B4', '#0066CC', '#003366',
+    // Teals & Cyans
+    '#4ECDC4', '#20B2AA', '#48CAE4', '#87CEEB', '#40E0D0', '#00CED1', '#5F9EA0', '#008B8B', '#2E8B57', '#006666',
+    // Greens
+    '#228B22', '#32CD32', '#00FF7F', '#98FB98', '#90EE90', '#00FA9A', '#3CB371', '#2E8B57', '#008000', '#006400',
+    // Yellows & Oranges
+    '#FFD700', '#FFA500', '#FF8C00', '#FF6347', '#FF4500', '#FFA07A', '#FFFF00', '#ADFF2F', '#9ACD32', '#DAA520',
+    // Reds & Pinks
+    '#FF6B6B', '#FF1493', '#FF69B4', '#FFB6C1', '#FFC0CB', '#DC143C', '#B22222', '#8B0000', '#CD5C5C', '#F08080',
+    // Purples
+    '#8A2BE2', '#9370DB', '#BA55D3', '#DDA0DD', '#EE82EE', '#DA70D6', '#FF00FF', '#C71585', '#9932CC', '#4B0082',
+    // Grays & Neutrals
+    '#FFFFFF', '#F8F9FA', '#F1F5F9', '#E6E6FA', '#DCDCDC', '#D3D3D3', '#C0C0C0', '#A9A9A9', '#808080', '#696969',
+    // Dark Colors
+    '#2C3E50', '#34495E', '#2F4F4F', '#36454F', '#708090', '#778899', '#2F2F2F', '#1C1C1C', '#000000', '#191970'
   ];
 
   // Keyboard shortcut for spinning
@@ -284,13 +297,14 @@ export const WheelOfNamesApp = () => {
                     onChange={(e) => setNewEntryColor(e.target.value)}
                     className="w-10 h-8 rounded border border-border cursor-pointer"
                   />
-                  <div className="flex gap-1">
-                    {colors.slice(0, 8).map((color) => (
+                  <div className="flex flex-wrap gap-1 max-w-xs">
+                    {colors.map((color) => (
                       <button
                         key={color}
                         onClick={() => setNewEntryColor(color)}
                         className="w-6 h-6 rounded border-2 border-white shadow-sm hover:scale-110 transition-transform"
                         style={{ backgroundColor: color }}
+                        title={color}
                       />
                     ))}
                   </div>
@@ -334,13 +348,14 @@ export const WheelOfNamesApp = () => {
                             onChange={(e) => setEditingColor(e.target.value)}
                             className="w-6 h-6 rounded border border-border cursor-pointer"
                           />
-                          <div className="flex gap-1">
-                            {colors.slice(0, 6).map((color) => (
+                          <div className="flex flex-wrap gap-1 max-w-xs">
+                            {colors.map((color) => (
                               <button
                                 key={color}
                                 onClick={() => setEditingColor(color)}
                                 className="w-4 h-4 rounded border border-white shadow-sm hover:scale-110 transition-transform"
                                 style={{ backgroundColor: color }}
+                                title={color}
                               />
                             ))}
                           </div>
