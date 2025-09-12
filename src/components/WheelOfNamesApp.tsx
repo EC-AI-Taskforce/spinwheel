@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { toast } from 'sonner';
 import { SpinningWheel, WheelEntry, SpinningWheelRef } from './SpinningWheel';
 import { WinnerModal } from './WinnerModal';
@@ -268,145 +269,151 @@ export const WheelOfNamesApp = () => {
             </div>
           </div>
 
-          {/* Entries Management */}
+          {/* Management Section */}
           <div className="space-y-6">
             <Card className="p-6 bg-card border-border shadow-card">
-              <h2 className="text-2xl font-bold mb-4 text-foreground">
-                Manage Entries ({entries.length})
-              </h2>
-              
-              {/* Add Entry */}
-              <div className="space-y-3 mb-6">
-                <div className="flex gap-2">
-                  <Input
-                    value={newEntryName}
-                    onChange={(e) => setNewEntryName(e.target.value)}
-                    placeholder="Enter a name..."
-                    onKeyPress={(e) => e.key === 'Enter' && addEntry()}
-                    className="flex-1"
-                  />
-                  <Button onClick={addEntry} className="bg-gradient-accent">
-                    <Plus className="w-4 h-4" />
-                  </Button>
-                </div>
-                <div className="flex items-center gap-2">
-                  <label className="text-sm font-medium text-muted-foreground">Color:</label>
-                  <input
-                    type="color"
-                    value={newEntryColor}
-                    onChange={(e) => setNewEntryColor(e.target.value)}
-                    className="w-10 h-8 rounded border border-border cursor-pointer"
-                  />
-                  <div className="flex flex-wrap gap-1 max-w-xs">
-                    {colors.map((color) => (
-                      <button
-                        key={color}
-                        onClick={() => setNewEntryColor(color)}
-                        className="w-6 h-6 rounded border-2 border-white shadow-sm hover:scale-110 transition-transform"
-                        style={{ backgroundColor: color }}
-                        title={color}
+              <Tabs defaultValue="entries" className="w-full">
+                <TabsList className="grid w-full grid-cols-2">
+                  <TabsTrigger value="entries">Manage Entries ({entries.length})</TabsTrigger>
+                  <TabsTrigger value="settings">Wheel Settings</TabsTrigger>
+                </TabsList>
+                
+                <TabsContent value="entries" className="mt-6">
+                  {/* Add Entry */}
+                  <div className="space-y-3 mb-6">
+                    <div className="flex gap-2">
+                      <Input
+                        value={newEntryName}
+                        onChange={(e) => setNewEntryName(e.target.value)}
+                        placeholder="Enter a name..."
+                        onKeyPress={(e) => e.key === 'Enter' && addEntry()}
+                        className="flex-1"
                       />
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* Entries List */}
-              <div className="space-y-2 max-h-96 overflow-y-auto">
-                {entries.map((entry) => (
-                  <div
-                    key={entry.id}
-                    className="flex items-center gap-3 p-3 rounded-lg bg-muted/50 hover:bg-muted transition-colors"
-                  >
-                    <div
-                      className="w-4 h-4 rounded-full border-2 border-white shadow-sm"
-                      style={{ backgroundColor: entry.color }}
-                    />
-                    
-                    {editingId === entry.id ? (
-                      <div className="flex-1 space-y-2">
-                        <div className="flex gap-2">
-                          <Input
-                            value={editingName}
-                            onChange={(e) => setEditingName(e.target.value)}
-                            onKeyPress={(e) => e.key === 'Enter' && saveEdit()}
-                            className="flex-1"
-                            autoFocus
+                      <Button onClick={addEntry} className="bg-gradient-accent">
+                        <Plus className="w-4 h-4" />
+                      </Button>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <label className="text-sm font-medium text-muted-foreground">Color:</label>
+                      <input
+                        type="color"
+                        value={newEntryColor}
+                        onChange={(e) => setNewEntryColor(e.target.value)}
+                        className="w-10 h-8 rounded border border-border cursor-pointer"
+                      />
+                      <div className="flex flex-wrap gap-1 max-w-xs">
+                        {colors.map((color) => (
+                          <button
+                            key={color}
+                            onClick={() => setNewEntryColor(color)}
+                            className="w-6 h-6 rounded border-2 border-white shadow-sm hover:scale-110 transition-transform"
+                            style={{ backgroundColor: color }}
+                            title={color}
                           />
-                          <Button onClick={saveEdit} size="sm" variant="outline">
-                            Save
-                          </Button>
-                          <Button onClick={cancelEdit} size="sm" variant="outline">
-                            Cancel
-                          </Button>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <label className="text-xs text-muted-foreground">Color:</label>
-                          <input
-                            type="color"
-                            value={editingColor}
-                            onChange={(e) => setEditingColor(e.target.value)}
-                            className="w-6 h-6 rounded border border-border cursor-pointer"
-                          />
-                          <div className="flex flex-wrap gap-1 max-w-xs">
-                            {colors.map((color) => (
-                              <button
-                                key={color}
-                                onClick={() => setEditingColor(color)}
-                                className="w-4 h-4 rounded border border-white shadow-sm hover:scale-110 transition-transform"
-                                style={{ backgroundColor: color }}
-                                title={color}
-                              />
-                            ))}
-                          </div>
-                        </div>
+                        ))}
                       </div>
-                    ) : (
-                      <>
-                        <span className="flex-1 text-foreground font-medium">
-                          {entry.name}
-                        </span>
-                        {winner === entry.name && (
-                          <Badge className="bg-gradient-secondary animate-pulse">
-                            Winner! 🏆
-                          </Badge>
+                    </div>
+                  </div>
+
+                  {/* Entries List */}
+                  <div className="space-y-2 max-h-96 overflow-y-auto">
+                    {entries.map((entry) => (
+                      <div
+                        key={entry.id}
+                        className="flex items-center gap-3 p-3 rounded-lg bg-muted/50 hover:bg-muted transition-colors"
+                      >
+                        <div
+                          className="w-4 h-4 rounded-full border-2 border-white shadow-sm"
+                          style={{ backgroundColor: entry.color }}
+                        />
+                        
+                        {editingId === entry.id ? (
+                          <div className="flex-1 space-y-2">
+                            <div className="flex gap-2">
+                              <Input
+                                value={editingName}
+                                onChange={(e) => setEditingName(e.target.value)}
+                                onKeyPress={(e) => e.key === 'Enter' && saveEdit()}
+                                className="flex-1"
+                                autoFocus
+                              />
+                              <Button onClick={saveEdit} size="sm" variant="outline">
+                                Save
+                              </Button>
+                              <Button onClick={cancelEdit} size="sm" variant="outline">
+                                Cancel
+                              </Button>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <label className="text-xs text-muted-foreground">Color:</label>
+                              <input
+                                type="color"
+                                value={editingColor}
+                                onChange={(e) => setEditingColor(e.target.value)}
+                                className="w-6 h-6 rounded border border-border cursor-pointer"
+                              />
+                              <div className="flex flex-wrap gap-1 max-w-xs">
+                                {colors.map((color) => (
+                                  <button
+                                    key={color}
+                                    onClick={() => setEditingColor(color)}
+                                    className="w-4 h-4 rounded border border-white shadow-sm hover:scale-110 transition-transform"
+                                    style={{ backgroundColor: color }}
+                                    title={color}
+                                  />
+                                ))}
+                              </div>
+                            </div>
+                          </div>
+                        ) : (
+                          <>
+                            <span className="flex-1 text-foreground font-medium">
+                              {entry.name}
+                            </span>
+                            {winner === entry.name && (
+                              <Badge className="bg-gradient-secondary animate-pulse">
+                                Winner! 🏆
+                              </Badge>
+                            )}
+                            <Button
+                              onClick={() => startEdit(entry)}
+                              size="sm"
+                              variant="ghost"
+                              disabled={isSpinning}
+                            >
+                              <Edit3 className="w-4 h-4" />
+                            </Button>
+                            <Button
+                              onClick={() => removeEntry(entry.id)}
+                              size="sm"
+                              variant="ghost"
+                              disabled={isSpinning}
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </Button>
+                          </>
                         )}
-                        <Button
-                          onClick={() => startEdit(entry)}
-                          size="sm"
-                          variant="ghost"
-                          disabled={isSpinning}
-                        >
-                          <Edit3 className="w-4 h-4" />
-                        </Button>
-                        <Button
-                          onClick={() => removeEntry(entry.id)}
-                          size="sm"
-                          variant="ghost"
-                          disabled={isSpinning}
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </Button>
-                      </>
+                      </div>
+                    ))}
+                    
+                    {entries.length === 0 && (
+                      <div className="text-center py-8 text-muted-foreground">
+                        <p>No entries yet. Add some names to get started!</p>
+                      </div>
                     )}
                   </div>
-                ))}
+                </TabsContent>
                 
-                {entries.length === 0 && (
-                  <div className="text-center py-8 text-muted-foreground">
-                    <p>No entries yet. Add some names to get started!</p>
-                  </div>
-                )}
-              </div>
+                <TabsContent value="settings" className="mt-6">
+                  <WheelSettings
+                    soundEnabled={soundEnabled}
+                    onSoundToggle={setSoundEnabled}
+                    spinDuration={spinDuration}
+                    onSpinDurationChange={setSpinDuration}
+                  />
+                </TabsContent>
+              </Tabs>
             </Card>
-
-            {/* Settings */}
-            <WheelSettings
-              soundEnabled={soundEnabled}
-              onSoundToggle={setSoundEnabled}
-              spinDuration={spinDuration}
-              onSpinDurationChange={setSpinDuration}
-            />
           </div>
         </div>
 
