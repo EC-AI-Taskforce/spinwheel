@@ -1,7 +1,20 @@
 import { WheelOfNamesApp } from "@/components/WheelOfNamesApp";
+import { WheelEntry } from "@/components/SpinningWheel";
 
-const Index = () => {
-  return <WheelOfNamesApp />;
+interface IndexProps {
+  entries: WheelEntry[];
+  setEntries: (entries: WheelEntry[]) => void;
+  soundEnabled: boolean;
+  spinDuration: number;
+}
+
+const Index = ({ entries, setEntries, soundEnabled, spinDuration }: IndexProps) => {
+  return <WheelOfNamesApp 
+    entries={entries}
+    setEntries={setEntries}
+    soundEnabled={soundEnabled}
+    spinDuration={spinDuration}
+  />;
 };
 
 export default Index;
